@@ -1,22 +1,30 @@
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
+ int wight[20] = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+ char code[15] = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
 
 int main(){
-  int n, n1, n2;
-  char a[100];
-  gets(a);
-  n = strlen(a);
-  n1 = (n + 2) / 3;
-  n2 = n + 2 - 2 * n1; 
-  for(int i = 0; i < n1 - 1; i++){
-    printf("%c", a[i]);
-    for(int j = 0; j < n2 - 2; j++){
-      printf(" ");
+  int n;
+  scanf("%d", &n);
+  bool flag = true;
+  for(int i = 0; i < n; i++){
+    char card[20];
+    scanf("%s", card);
+    int j, sum = 0;
+    for(j = 0; j < 17; j++){
+      if(card[j] >= '0' && card[j] <= '9'){
+        sum += (card[j] - '0') * wight[j];
+      }else{
+        break;
+      }
     }
-    printf("%c\n", a[n - 1 - i]);
+    if(j < 17 || card[17] != code[sum % 11]){
+      printf("%s\n", card);
+      flag = false;
+    }
   }
-  for(int i = 0; i < n2; i++){
-    printf("%c", a[n1 - 1 + i]);
+  if(flag){
+    printf("All passed\n");
   }
   return 0;
 }
